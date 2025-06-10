@@ -1,0 +1,41 @@
+{
+  "name": "mr-poc",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1.11.0",
+    "sqlite3": "^5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-loss-creator": "cds watch --open loss-creator/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-loss-browser": "cds watch --open loss-browser/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-transaction-manager": "cds watch --open transaction-manager/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-treaty-browser": "cds watch --open treaty-browser/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/loss-browser",
+    "app/loss-creator",
+    "app/transaction-manager",
+    "app/transaction-manager",
+    "app/treaty-browser",
+    "app/treaty-browser"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "./db/db.sqlite"
+        }
+      }
+    }
+  }
+}

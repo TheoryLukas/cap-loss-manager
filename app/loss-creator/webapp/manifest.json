@@ -1,0 +1,191 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "losscreator",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.17.5",
+      "toolsId": "4ba58753-2834-4bbc-be8c-8fac5c8b738d"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/loss-creator/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Loss-Creator": {
+          "semanticObject": "Loss",
+          "action": "Creator",
+          "title": "{{appTitle}}",
+          "signature": {
+            "parameters": {
+              "ID": {
+                "required": false
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.136.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "losscreator.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "LossesList",
+          "target": "LossesList"
+        },
+        {
+          "pattern": "Losses({key}):?query:",
+          "name": "LossesObjectPage",
+          "target": "LossesObjectPage"
+        }
+      ],
+      "targets": {
+        "LossesList": {
+          "type": "Component",
+          "id": "LossesList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Losses",
+              "variantManagement": "Page",
+              "navigation": {
+                "Losses": {
+                  "detail": {
+                    "route": "LossesObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "LossesObjectPage": {
+          "type": "Component",
+          "id": "LossesObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Losses",
+              "content": {
+                "header": {
+                  "actions": {
+                    "importLoss": {
+                      "visible": false,
+                      "enabled": "{ui>/isEditable}",
+                      "text": "Search to Import",
+                      "press": "losscreator.ext.controller.NavigationSender.import"
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "treaties/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "actions": {
+                    "import-treaty": {
+                      "press": "losscreator.ext.controller.NavigationSender.import",
+                      "visible": true,
+                      "enabled": "{ui>/isEditable}",
+                      "requiresSelection": false,
+                      "text": "Import Treaty Data"
+                    }
+                  },
+                  "tableSettings": {
+                    "enablePaste": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {}
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

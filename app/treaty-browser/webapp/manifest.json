@@ -1,0 +1,177 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "treatybrowser",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.17.5",
+      "toolsId": "893cc8e3-aef3-498f-b162-4debf9a9cc28"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/treaty-browser/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Treaty-Browser": {
+          "semanticObject": "Treaty",
+          "action": "Browser",
+          "title": "{{appTitle}}",
+          "signature": {
+            "parameters": {
+              "lossid": {
+                "required": false
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.136.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "treatybrowser.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "TreatyList",
+          "target": "TreatyList"
+        },
+        {
+          "pattern": "Treaty({key}):?query:",
+          "name": "TreatyObjectPage",
+          "target": "TreatyObjectPage"
+        }
+      ],
+      "targets": {
+        "TreatyList": {
+          "type": "Component",
+          "id": "TreatyList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Treaty",
+              "variantManagement": "Page",
+              "navigation": {
+                "Treaty": {
+                  "detail": {
+                    "route": "TreatyObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "Multi"
+                  },
+                  "actions": {
+                    "NavigateBack": {
+                      "requiresSelection": true,
+                      "text": "Go Back",
+                      "press": ".extension.treatybrowser.ext.controller.BrowserController.navigateBack",
+                      "visible": true,
+                      "enabled": true
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "TreatyObjectPage": {
+          "type": "Component",
+          "id": "TreatyObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Treaty"
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "treatybrowser.ext.controller.BrowserController"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

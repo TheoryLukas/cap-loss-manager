@@ -1,0 +1,61 @@
+# CAP Insurance Value Notification Service
+_out
+connection.properties
+default-*.json
+.cdsrc-private.json
+*-private.mtaext
+/gen/
+/src/gen/
+node_modules/
+target/
+
+# local http rest client folder
+/http
+
+# Databases
+# cds-dk version 6.2.0 new dafault file ending .sqlite
+*.db
+db.*
+
+# Fiori build files
+dist/
+/resources/
+
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+*_mta_build_tmp
+*.mtar
+*.mta
+mta_archives/
+
+# Other
+.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea
+
+# Tests:
+coverage/
+
+# Subscription
+packages/apps/subscription/db/src/gen
+
+# Mtx 
+packages/apps/subscription/mtx/sidecar/gen
+
+# Database
+packages/apps/database/db/src/gen
+packages/apps/subscription/db/src/gen
+*.sqlite
