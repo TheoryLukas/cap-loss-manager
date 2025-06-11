@@ -9,8 +9,9 @@ class LossCreatorService extends cds.ApplicationService {
       const sourceData = req.data.selectedTreaties;
       const destinationID = req.params[0];
 
-      const draftID = (await SELECT.one.from(Treaties.drafts))
-        .DraftAdministrativeData_DraftUUID;
+      const draftID = (
+        await SELECT.one.from(Losses.drafts).where({ ID: destinationID })
+      ).DraftAdministrativeData_DraftUUID;
 
       await DELETE.from(Treaties.drafts).where({ up__ID: destinationID });
 

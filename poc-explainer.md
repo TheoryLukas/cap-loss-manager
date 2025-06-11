@@ -143,8 +143,9 @@ this.on("updateData", Losses.drafts, async (req) => {
     const sourceData = req.data.selectedTreaties;
     const destinationID = req.params[0];
 
-    const draftID = (await SELECT.one.from(Treaties.drafts))
-        .DraftAdministrativeData_DraftUUID;
+    const draftID = (
+        await SELECT.one.from(Losses.drafts).where({ ID: destinationID })
+    ).DraftAdministrativeData_DraftUUID;
 
     await DELETE.from(Treaties.drafts).where({ up__ID: destinationID });
 
@@ -158,7 +159,7 @@ this.on("updateData", Losses.drafts, async (req) => {
 });
 ```
 
-The implementation of `updateData` replaces the draft data with the selected Treaties.
+The implementation of `updateData` replaces the draft data with the selected Treaties. The `draftID` is aquired from the Loss entity in draft mode.
 
 ## 2. Create two Fiori Elements Apps
 
