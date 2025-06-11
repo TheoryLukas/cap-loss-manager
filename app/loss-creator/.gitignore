@@ -1,2 +1,2 @@
 webapp/**/*.js
- 
+!webapp/ext/**/*.js
